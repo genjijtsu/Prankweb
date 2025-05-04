@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free PC Game Download</title>
+  <style>
+    @font-face {
+      font-family: 'Playgum';
+      src: url('Playgum.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Playgum', sans-serif;
+      background: linear-gradient(to bottom, #0077ff, #001f4d);
+      color: white;
+    }
+    h1 {
+      color: #00bfff;
+    }
+
+    .game-box {
+      border: 2px solid #00bfff;
+      padding: 20px;
+      border-radius: 10px;
+      background-color: #102d4e;
+      box-shadow: 0 0 15px #00bfff;
+      margin-top: 30px;
+    }
+
+    .button {
+      background: linear-gradient(90deg, #0072ff, #00c6ff);
+      border: none;
+      color: white;
+      padding: 12px 25px;
+      margin: 10px;
+      font-size: 16px;
+      border-radius: 8px;
+      cursor: pointer;
+      box-shadow: 0 5px 15px rgba(0, 191, 255, 0.4);
+      transition: transform 0.2s;
+    }
+
+    .button:hover {
+      transform: scale(1.05);
+    }
+
+    #progress-container {
+      width: 80%;
+      background-color: red;
+      border-radius: 10px;
+      margin: 20px auto;
+      height: 20px;
+      overflow: hidden;
+      display: none;
+    }
+
+    #progress-bar {
+      height: 100%;
+      width: 0%;
+      background-color: Blue;
+      transition: width 4s linear;
+    }
+
+    .popup {
+      position: fixed;
+      width: 200px;
+      height: 150px;
+      background: repeating-linear-gradient(45deg, white,white 10px);
+      color: red;
+      font-weight: bold;
+      font-size: 18px;
+      z-index: 9999;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      border: 3px solid red;
+      box-shadow: 0 0 15px black;
+    }
+
+    .popup div {
+      animation: blink 0.5s infinite alternate;
+    }
+
+    @keyframes blink {
+      from { color: white; }
+      to { color: black; }
+    }
+    footer {
+  position: fixed;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-family: 'Playgum', sans-serif;
+  font-size: 20px;
+  padding: 10px 25px;
+  background: Gray;
+  color: Blue;
+  border-radius: 15px;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+  text-shadow: 0 0 20px white, 0 0 90px Blur;
+  animation: slideFooter 2s ease-in-out forwards;
+}
+
+@keyframes slideFooter {
+  0% {
+    left: 100%;
+    opacity: 0;
+  }
+  100% {
+    left: 50%;
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+}
+  </style>
+</head>
+<body>
+  
+<div style="position: absolute; top: 10px; left: 50%; transform: translateX(-50%);">
+  ©Real Game PC free
+</div>
+<br>
+<br>
+  <footer>Minecraft Free Java Edition</footer>
+
+  <div class="game-box">
+    <img src="https://files.catbox.moe/7m4yx1.jpg" width="150">
+    <p>Download size: 2GB</p>
+    <button class="button" onclick="startDownload()">Download</button>
+
+    <div id="progress-container">
+      <div id="progress-bar"></div>
+    </div>
+
+    <button id="playBtn" class="button" onclick="playGame()" style="display:none;">Play</button>
+  </div>
+
+  <audio id="idiotSound" src="https://files.catbox.moe/teryq3.mp3"></audio>
+
+  <script>
+    function startDownload() {
+      document.getElementById("progress-container").style.display = "block";
+      const bar = document.getElementById("progress-bar");
+      bar.style.width = "0%";
+
+      setTimeout(() => {
+        bar.style.width = "100%";
+      }, 50);
+
+      setTimeout(() => {
+        document.getElementById("playBtn").style.display = "inline-block";
+      }, 4000);
+    }
+
+    function playGame() {
+      document.getElementById("idiotSound").play();
+      for (let i = 0; i < 5; i++) {
+        createMovingPopup();
+      }
+    }
+
+    function createMovingPopup() {
+      const popup = document.createElement("div");
+      popup.className = "popup";
+      popup.innerHTML = `
+        <div>YOU ARE AN IDIOT HAHA</div>
+        <div style="font-size: 30px;">☺︎ ☺︎ ☺︎ </div>
+        <div>Eror All</div>
+      `;
+
+      document.body.appendChild(popup);
+
+      let x = Math.random() * (window.innerWidth - 200);
+      let y = Math.random() * (window.innerHeight - 150);
+      let dx = 4 + Math.random() * 2;
+      let dy = 4 + Math.random() * 2;
+
+      popup.style.left = x + "px";
+      popup.style.top = y + "px";
+
+      setInterval(() => {
+        x += dx;
+        y += dy;
+
+        if (x <= 0 || x >= window.innerWidth - 200) dx *= -1;
+        if (y <= 0 || y >= window.innerHeight - 150) dy *= -1;
+
+        popup.style.left = x + "px";
+        popup.style.top = y + "px";
+      }, 15);
+
+      popup.addEventListener("click", () => {
+        for (let i = 0; i < 10; i++) {
+          createMovingPopup();
+        }
+      });
+    }
+  </script>
+
+</body>
+</html>

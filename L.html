@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Free PC Game Download</title>
+  <link rel="preload" href="Playgum.ttf" as="font" type="font/ttf" crossorigin />
+  <style>
+    @font-face {
+      font-family: 'Playgum';
+      src: url('Playgum.ttf') format('truetype');
+    }
+
+    body {
+      margin: 0;
+      font-family: 'Playgum', sans-serif;
+      background: linear-gradient(to bottom, #0077ff, #001f4d);
+      color: white;
+    }
+
+    header {
+      text-align: center;
+      padding: 20px;
+      font-size: 2em;
+      background: #0040a0;
+    }
+
+    .menu-btn {
+      position: fixed;
+      top: 15px;
+      right: 15px;
+      background: rgba(0, 153, 255, 0.7);
+      border: none;
+      border-radius: 50%;
+      width: 40px;
+      height: 40px;
+      color: white;
+      font-size: 20px;
+      cursor: pointer;
+      z-index: 1001;
+    }
+
+    .sidebar {
+      position: fixed;
+      top: 0;
+      right: -290px;
+      width: 250px;
+      height: 100%;
+      background: #000c33;
+      color: white;
+      padding: 20px;
+      box-shadow: -2px 0 10px rgba(0,0,0,0.5);
+      transition: right 0.3s ease;
+      z-index: 1000;
+    }
+
+    .sidebar.active {
+      right: 0;
+    }
+
+    .sidebar ul {
+      list-style: none;
+      padding: 0;
+      margin-top: 40px;
+    }
+
+    .sidebar li {
+      margin: 20px 0;
+      cursor: pointer;
+      background: rgba(0,153,255,0.2);
+      padding: 10px;
+      border-radius: 10px;
+      text-align: center;
+    }
+
+    .overlay {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%; height: 100%;
+      background: rgba(0,0,0,0.5);
+      z-index: 999;
+    }
+
+    .overlay.active {
+      display: block;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      background: white;
+      color: black;
+      padding: 20px;
+      border-radius: 12px;
+      z-index: 1002;
+      width: 90%;
+      max-width: 300px;
+    }
+
+    .popup.active {
+      display: block;
+    }
+
+    .popup input, .popup textarea {
+      width: 100%;
+      padding: 8px;
+      margin: 8px 0;
+      border-radius: 6px;
+      border: 1px solid #ccc;
+    }
+
+    .popup button {
+      width: 100%;
+      background: #0077ff;
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .game-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 16px;
+      padding: 20px;
+    }
+
+    .game-card {
+      background: rgba(0,0,0,0.3);
+      border-radius: 16px;
+      text-align: center;
+      padding: 16px;
+      box-shadow: 0 0 10px rgba(0,0,0,0.4);
+      transition: 0.3s;
+    }
+
+    .game-card:hover {
+      transform: scale(1.03);
+    }
+
+    .game-card img {
+      width: 100px;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 12px;
+    }
+
+    .game-card a {
+      display: inline-block;
+      margin-top: 10px;
+      background: rgba(0,153,255,0.6);
+      color: white;
+      padding: 10px;
+      border-radius: 10px;
+      text-decoration: none;
+      font-weight: bold;
+      transition: 0.3s;
+    }
+
+    .game-card a:hover {
+      background: rgba(0,153,255,0.9);
+    }
+
+    .footer {
+      position: fixed;
+      bottom: 0;
+      width: 100%;
+      background: #0077ff;
+      text-align: center;
+      padding: 10px;
+      animation: slideFade 3s forwards;
+    }
+
+    @keyframes slideFade {
+      0% { transform: translateX(100%); opacity: 1; }
+      80% { transform: translateX(0); opacity: 1; }
+      100% { transform: translateX(-100%); opacity: 0; }
+    }
+  </style>
+  <style>
+  @font-face {
+    font-family: 'Playgum';
+    src: url('Playgum.ttf') format('truetype');
+  }
+
+  .music-btn {
+    font-family: 'Playgum', sans-serif;
+    background: linear-gradient(135deg, #00f260, #0575e6);
+    border: none;
+    padding: 15px 40px;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    position: absolute;
+    top: 30px;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 10;
+  }
+
+  .music-btn:hover {
+    transform: translateX(-50%) scale(1.05);
+    background: linear-gradient(135deg, #0575e6, #00f260);
+  }
+
+  .lyrics-box {
+    font-family: 'Playgum', sans-serif;
+    font-size: 1.7rem;
+    color: white;
+    text-align: center;
+    text-shadow: 0 0 12px #00f5ff;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    max-width: 90%;
+    animation: fadeIn 0.4s ease;
+  }
+
+  @keyframes fadeIn {
+    from {opacity: 0;}
+    to {opacity: 1;}
+  }
+
+  body {
+    background: linear-gradient(to bottom right, #0f2027, #203a43, #2c5364);
+    height: 100vh;
+    margin: 0;
+    overflow: hidden;
+  }
+</style>
+<style>
+  @font-face {
+    font-family: 'Playgum';
+    src: url('Playgum.ttf') format('truetype');
+  }
+
+  .music-btn {
+    font-family: 'Playgum', sans-serif;
+    background: linear-gradient(135deg, #00f260, #0575e6);
+    border: none;
+    padding: 15px 40px;
+    font-size: 24px;
+    color: white;
+    font-weight: bold;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 255, 255, 0.7);
+    text-transform: uppercase;
+    letter-spacing: 2px;
+  }
+
+  .music-btn:hover {
+    transform: scale(1.1);
+    background: linear-gradient(135deg, #0575e6, #00f260);
+  }
+</style>
+
+<button id="musicButton" class="music-btn">▶ Play Music</button>
+<audio id="music" src="https://files.catbox.moe/83677z.mp3"></audio>
+
+<script>
+  const music = document.getElementById("music");
+  const btn = document.getElementById("musicButton");
+  let isPlaying = false;
+
+  btn.addEventListener("click", () => {
+    if (!isPlaying) {
+      music.play();
+      btn.textContent = "⏸ Pause Music";
+    } else {
+      music.pause();
+      btn.textContent = "▶ Play Music";
+    }
+    isPlaying = !isPlaying;
+  });
+</script>
+</head>
+<body>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<p>━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━</p>
+<header>Free PC Game Download</header>
+<button class="menu-btn" onclick="toggleSidebar()">≡</button>
+
+<div class="sidebar" id="sidebar">
+  <ul>
+    <li onclick="showPopup('login')">Login</li>
+    <li onclick="showPopup('request')">Request Game</li>
+    <li onclick="toggleSidebar()">Close</li>
+  </ul>
+</div>
+
+<div class="overlay" id="overlay" onclick="closeAll()"></div>
+
+<!-- POPUPS -->
+<div class="popup" id="loginPopup">
+  <form action="https://formspree.io/f/xqaqpajb" method="POST" onsubmit="return handleSubmit(this)">
+    <h3>Login</h3>
+    <input type="text" name="username" placeholder="Enter username" required />
+    <input type="hidden" name="type" value="login">
+    <button type="submit">Login</button>
+  </form>
+</div>
+
+<div class="popup" id="requestPopup">
+  <form action="https://formspree.io/f/xqaqpajb" method="POST" onsubmit="return handleSubmit(this)">
+    <h3>Request Game</h3>
+    <textarea name="game" placeholder="Enter game name" required></textarea>
+    <input type="hidden" name="type" value="request">
+    <button type="submit">Request Now</button>
+  </form>
+</div>
+
+<!-- GAME LIST -->
+<div class="game-list">
+  <div class="game-card">
+    <img src="https://files.catbox.moe/a4mcma.jpg" alt="Fireworks Mania">
+    <h4>Fireworks Mania</h4>
+    <a href="fireworksmania.html">View Game</a>
+  </div>
+  <div class="game-card">
+    <img src="https://upload.wikimedia.org/wikipedia/en/a/a5/Grand_Theft_Auto_V.png" alt="GTA 5">
+    <h4>GTA 5</h4>
+    <a href="gta5.html">View Game</a>
+  </div>
+  <div class="game-card">
+    <img src="https://files.catbox.moe/x1jwxl.jpg" alt="Garry's Mod">
+    <h4>Garry's Mod</h4>
+    <a href="garrysmod.html">View Game</a>
+  </div>
+  <div class="game-card">
+    <img src="https://files.catbox.moe/7m4yx1.jpg" alt="Minecraft">
+    <h4>Minecraft</h4>
+    <a href="minecraft.html">View Game</a>
+  </div>
+  
+<!-- FOOTER -->
+<div class="footer">
+  Free Game PC for Android - No Fake, Real 100%
+</div>
+
+<script>
+  function toggleSidebar() {
+    document.getElementById('sidebar').classList.toggle('active');
+    document.getElementById('overlay').classList.toggle('active');
+  }
+
+  function showPopup(type) {
+    document.getElementById('overlay').classList.add('active');
+    toggleSidebar();
+    if (type === 'login') {
+      document.getElementById('loginPopup').classList.add('active');
+    } else {
+      document.getElementById('requestPopup').classList.add('active');
+    }
+  }
+
+  function closeAll() {
+    document.getElementById('sidebar').classList.remove('active');
+    document.getElementById('overlay').classList.remove('active');
+    document.getElementById('loginPopup').classList.remove('active');
+    document.getElementById('requestPopup').classList.remove('active');
+  }
+
+  function handleSubmit(form) {
+    setTimeout(() => {
+      alert(form.querySelector('input[name="type"]').value === 'login' 
+        ? '🗿☕ Sukses Login' 
+        : '🗿☕🍕 Sukses Request Game brayy tunggu ya');
+      closeAll();
+    }, 500);
+    return true;
+  }
+</script>
+
+<body>
+</html>
